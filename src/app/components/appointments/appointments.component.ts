@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { AppointmentsService } from '../../services/appointments.service';
 
 @Component({
   selector: 'app-appointments',
@@ -10,18 +11,47 @@ export class AppointmentsComponent implements OnInit {
 
   imgURL = 'https://upload.wikimedia.org/wikipedia/commons/a/a7/Nuremberg_chronicles_-_Dance_of_Death_%28CCLXIIIIv%29.jpg'
   myDatePicker = null;
-  selectedDate: any;
+  startAppointment: any;
+  endAppointment: any;
 
-  constructor() { }
+  constructor(
+    private appointmentsService: AppointmentsService
+  ) { }
 
   ngOnInit(): void {
 
   }
 
   dateChange($event: any){
-    this.selectedDate = new Date($event.value)
-    this.selectedDate = this.selectedDate.toJSON()
-    console.log(this.selectedDate)
+    let date = new Date($event.value);
+    let hoursDiff = date.getHours() - date.getTimezoneOffset() / 60;
+    // startAppointment
+    date.setHours(hoursDiff);
+    this.startAppointment = date.toJSON();
+    // console.log(this.startAppointment);
+    
+    //endAppointment
+    let oneHourDance = date.getHours() + 1;
+    date.setHours(oneHourDance);
+    this.endAppointment = date.toJSON();
+    // console.log(this.endAppointment);
+  }
+
+  makeAppointment(name: String, email: String){
+    const appointment = {
+      name,
+      email,
+      startAppointment: this.startAppointment,
+      endAppointment: this.endAppointment
+    }
+    this.appointmentsService.makeAppointment(appointment)
+      .subscribe(
+        res => {
+          console.log(res)
+        }, err => {
+          console.log(err)
+        }
+      );
   }
 
 
