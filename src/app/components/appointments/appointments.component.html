@@ -1,0 +1,17 @@
+<div class="card">
+    <img src="{{imgURL}}" alt="">
+    <div class="card-body">
+        <h1>
+            Agenda tu hora para bailar una pieza con la muerte
+        </h1>
+        <form>
+            <mat-form-field>
+                <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time" [(ngModel)]="myDatePicker" (dateChange)="dateChange($event)" name="picker">
+                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
+            </mat-form-field>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</div>
+
