@@ -18,8 +18,12 @@ export class AppointmentsService {
       headers: { 
         'Content-Type': 'application/json',
       },
+      
+    });
+  };
 
-    })
+  getAllAppointments(){
+    return this.http.get<any>(API.URL + '/appointment');
   }
 
 }

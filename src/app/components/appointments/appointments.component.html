@@ -2,28 +2,88 @@
     <img src="{{imgURL}}" alt="">
     <div class="card-body">
         <h1>
-            Agenda tu hora para bailar una pieza con la muerte
+            Schedule your time to dance a piece with death.
         </h1>
-        <form>
+        <form [formGroup]="form" (ngSubmit)="makeAppointment(name.value, email.value)">
             <div>
                 <mat-form-field appearance="fill">
-                    <mat-label>Nombre</mat-label>
-                    <input matInput #name>
+                    <mat-label>Name</mat-label>
+                    <input matInput #name id="name" formControlName="name" minlength>
                 </mat-form-field>
+                <div *ngIf="f.name.touched && f.name.invalid" class="">
+                    <mat-error *ngIf="f.name.errors && f.name.errors.required">Name is required.          </mat-error>
+                    <mat-error *ngIf="f.name.errors && f.name.errors.minlength">Name should be 3 character.</mat-error>
+                </div>
             </div>
             <div>
                 <mat-form-field appearance="fill">
                     <mat-label>Email</mat-label>
-                    <input type="email" matInput #email>
+                    <input type="email" matInput #email id="email" formControlName="email">
                 </mat-form-field>
+                <div *ngIf="f.email.touched && f.email.invalid" class="">
+                    <mat-error *ngIf="f.email.errors && f.email.errors.required">Email is required.             </mat-error>
+                    <mat-error *ngIf="f.email.errors && f.email.errors.email">Please, enter valid email address.</mat-error>
+                </div>
             </div>
-            <mat-form-field>
-                <input matInput [ngxMatDatetimePicker]="picker" placeholder="Choose a date & time" [(ngModel)]="myDatePicker" (dateChange)="dateChange($event)" name="picker" autocomplete="off">
-                <mat-datepicker-toggle matSuffix [for]="$any(picker)"></mat-datepicker-toggle>
-                <ngx-mat-datetime-picker #picker></ngx-mat-datetime-picker>
-            </mat-form-field>
             <div>
-                <button (click)="makeAppointment(name.value, email.value)" type="button" class="btn btn-dark">Send</button>
+                <mat-form-field>
+                    <mat-label>Choose a date</mat-label>
+                    <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" (dateChange)="dateChange($event)" id="date" formControlName="date">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+                <div *ngIf="f.date.touched && f.date.invalid" class="">
+                    <mat-error *ngIf="f.date.errors && f.date.errors.required">Date is required.</mat-error>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <label for="">Select an hour:</label>
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="9:00" autocomplete="off" (click)="timePicker(9)">
+                    <label class="btn btn-outline-dark" for="9:00">09:00</label>
+                    
+                    <input type="radio" class="btn-check" name="btnradio" id="10:00" autocomplete="off" (click)="timePicker(10)">
+                    <label class="btn btn-outline-dark" for="10:00">10:00</label>
+                    
+                    <input type="radio" class="btn-check" name="btnradio" id="11:00" autocomplete="off" (click)="timePicker(11)">
+                    <label class="btn btn-outline-dark" for="11:00">11:00</label>
+                    
+                    <input type="radio" class="btn-check" name="btnradio" id="12:00" autocomplete="off" (click)="timePicker(12)">
+                    <label class="btn btn-outline-dark" for="12:00">12:00</label>
+                    
+                    <input type="radio" class="btn-check" name="btnradio" id="13:00" autocomplete="off" (click)="timePicker(13)">
+                    <label class="btn btn-outline-dark" for="13:00">13:00</label>
+                </div>
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="14:00" autocomplete="off" (click)="timePicker(14)">
+                    <label class="btn btn-outline-dark" for="14:00">14:00</label>
+                    
+                    <input type="radio" class="btn-check" name="btnradio" id="15:00" autocomplete="off" (click)="timePicker(15)">
+                    <label class="btn btn-outline-dark" for="15:00">15:00</label>
+                    
+                    <input type="radio" class="btn-check" name="btnradio" id="16:00" autocomplete="off" (click)="timePicker(16)">
+                    <label class="btn btn-outline-dark" for="16:00">16:00</label>
+                    
+                    <input type="radio" class="btn-check" name="btnradio" id="17:00" autocomplete="off" (click)="timePicker(17)">
+                    <label class="btn btn-outline-dark" for="17:00">17:00</label>
+                    
+                    <input type="radio" class="btn-check" name="btnradio" id="18:00" autocomplete="off" (click)="timePicker(18)">
+                    <label class="btn btn-outline-dark" for="18:00">18:00</label>
+                </div>
+                <div>
+                    <mat-hint> *The dance will last one hour.</mat-hint>
+                </div>
+            </div>
+            <hr>
+            <div>
+                <button
+                    type="submit" 
+                    class="btn btn-dark" 
+                    [disabled]="f.email.invalid || f.name.invalid || f.date.invalid">
+                    Send
+                </button>
             </div>
         </form>
     </div>

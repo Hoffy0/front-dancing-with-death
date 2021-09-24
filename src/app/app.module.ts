@@ -15,6 +15,7 @@ import {
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
 
 import {
   NgxMatDatetimePickerModule,
@@ -32,8 +33,10 @@ import {
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    
     MatInputModule,
     MatFormFieldModule,
+    MatNativeDateModule,
   
     FormsModule,
     ReactiveFormsModule,
