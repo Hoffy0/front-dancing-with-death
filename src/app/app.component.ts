@@ -6,7 +6,6 @@ import { Component } from '@angular/core';
   templateUrl: './app.component.html',
   styleUrls: [
     './app.component.css',
-    '../../node_modules/ngx-toastr/toastr.css'
   ]
 })
 export class AppComponent {
