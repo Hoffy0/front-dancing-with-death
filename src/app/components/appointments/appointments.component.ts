@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppointmentsService } from '../../services/appointments.service';
 import { FormGroup, FormControl, Validators} from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-appointments',
@@ -37,7 +38,8 @@ export class AppointmentsComponent implements OnInit {
 
   constructor(
     // @Inject(DOCUMENT) document: any,
-    private appointmentsService: AppointmentsService
+    private appointmentsService: AppointmentsService,
+    private toastrService: ToastrService,
   ) { }
 
   ngOnInit(): void {
@@ -110,10 +112,12 @@ export class AppointmentsComponent implements OnInit {
     this.appointmentsService.makeAppointment(appointment)
       .subscribe(
         res => {
-          console.log(res)
+          // console.log(res)
+          this.toastrService.success(res.message)
           window.location.reload();
         }, err => {
           console.log(err)
+          this.toastrService.error(err.error.Error, err.error.message)
         }
       );
   }

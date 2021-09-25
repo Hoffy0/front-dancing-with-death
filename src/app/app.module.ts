@@ -22,6 +22,11 @@ import {
   NgxMatNativeDateModule,
   NgxMatTimepickerModule
 } from '@angular-material-components/datetime-picker';
+
+import {
+  ToastrModule,
+  ToastNoAnimation, 
+  ToastNoAnimationModule } from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,7 +50,14 @@ import {
 
     NgxMatDatetimePickerModule,
     NgxMatTimepickerModule,
-    NgxMatNativeDateModule
+    NgxMatNativeDateModule,
+
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      progressBar: true,
+      progressAnimation: 'increasing',
+      preventDuplicates: true
+    }),
   ],
   providers: [],
   bootstrap: [
